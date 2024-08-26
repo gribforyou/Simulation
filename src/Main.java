@@ -1,5 +1,4 @@
-package Sim;
-
+import Sim.*;
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +12,6 @@ public class Main {
 		if(s != null) {
 			sim.pauseSimulation();
 		}
-		
 	}
 
 }

@@ -1,4 +1,4 @@
-package Sim;
+package Service;
 
 public class ConsoleCleaner {
 	public static void cls() {
@@ -6,7 +6,7 @@ public class ConsoleCleaner {
     		new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
     	}
     	catch(Exception e) {
-    		System.out.println("cleaning error");
+    		System.out.println("Cleaning error!");
     	}
     }
 }

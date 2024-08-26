@@ -1,16 +1,18 @@
 package Sim;
 
 import Factories.*;
+import Renderers.*;
 
-public class Simulation extends Thread implements Runnable{
+public class Simulation implements Runnable{
     private Map map;
     private int steps;
     Thread th;
     boolean isActive;
+    Renderer renderer;
     
     public Simulation() {
-    	super();
     	isActive = false;
+    	renderer = new ConsoleRenderer();
     	map = new Map(30, 50);
     	map.generate(new RockFactory(), 15);
     	map.generate(new GrassFactory(), 35);
@@ -22,12 +24,13 @@ public class Simulation extends Thread implements Runnable{
     }
     
     public void run() {
-    	map.render(0);
-    	while(isActive) {
-    		ConsoleCleaner.cls();
-    		map.makeMove(++steps);
+    	renderer.render(map, steps);
+    	while(isActive){
+    		Service.ConsoleCleaner.cls();
+    		map.makeMove(++steps, renderer);
+    		map.generate(new GrassFactory(), 10);
     		try {
-    			Thread.sleep(10000);
+    			Thread.sleep(1000);
     		}
     		catch(InterruptedException ex) {
     			System.out.println("Sleep error");
@@ -37,7 +40,7 @@ public class Simulation extends Thread implements Runnable{
     
     public void startSimulation() {
     	isActive = true;
-    	this.start();
+    	th.start();
     }
     
     public void pauseSimulation() {
