@@ -6,7 +6,7 @@ import Entities.*;
 public class ConsoleRenderer implements Renderer{
     @Override
     public void render(Map map, int step) {
-    	Service.ConsoleCleaner.cls();
+    	//Service.ConsoleCleaner.cls();
     	System.out.println("Step: "+step);
     	Ceil cur;
     	Entity ent;

@@ -45,6 +45,40 @@ public class Map {
         }
     }
     
+    public boolean hasCreature() {
+    	for(int i = 0; i<x; i++) {
+    		for(int j = 0; j<y; j++) {
+    			if(matrix.get(new Ceil(i, j)) instanceof Creature)
+    				return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    public int grassCount() {
+    	int result = 0;
+    	for(int i = 0; i<x; i++) {
+    		for(int j = 0; j<y; j++) {
+    			if(matrix.get(new Ceil(i, j)) instanceof Grass) {
+    				result++;
+    			}
+    		}
+    	}
+    	return result;
+    }
+    
+    public int predatorCount() {
+    	int result = 0;
+    	for(int i = 0; i<x; i++) {
+    		for(int j = 0; j<y; j++) {
+    			if(matrix.get(new Ceil(i, j)) instanceof Predator) {
+    				result++;
+    			}
+    		}
+    	}
+    	return result;
+    }
+    
     public void makeMove(int step, Renderer renderer) {
     	ArrayList<Creature> creatures = new ArrayList<Creature>();
     	Creature temp;
@@ -65,16 +99,17 @@ public class Map {
         			tempCeil = new Ceil(k, j);
         			if(matrix.get(tempCeil) == creatures.get(i)) {
         				creatures.get(i).makeMove(tempCeil);
-        				renderer.render(this, step);
-        				try {
-        				   Thread.sleep(1000);
-        				}
-        				catch(Exception e) {}
+//        				renderer.render(this, step);
+//        				try {
+//        				   Thread.sleep(1000);
+//        				}
+//        				catch(Exception e) {}
         				j = y;
         				k = x;
         			}
         		}
         	}
     	}
+    	renderer.render(this, step);
     }
 }

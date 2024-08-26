@@ -26,14 +26,22 @@ public class Simulation implements Runnable{
     public void run() {
     	renderer.render(map, steps);
     	while(isActive){
-    		Service.ConsoleCleaner.cls();
+    		//Service.ConsoleCleaner.cls();
     		map.makeMove(++steps, renderer);
-    		map.generate(new GrassFactory(), 10);
+    		
+    		if(map.grassCount()<map.getX()*map.getY()/40) {
+    			map.generate(new GrassFactory(), 5);
+    		}
+    		
     		try {
-    			Thread.sleep(1000);
+    			Thread.sleep(3000);
     		}
     		catch(InterruptedException ex) {
     			System.out.println("Sleep error");
+    		}
+    		if(map.predatorCount()<=0) {
+    			System.out.println("End of simulation");
+    			isActive = false;
     		}
     	}
     }
